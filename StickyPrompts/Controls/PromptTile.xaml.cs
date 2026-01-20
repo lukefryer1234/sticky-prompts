@@ -85,6 +85,9 @@ public sealed partial class PromptTile : UserControl
     {
         this.InitializeComponent();
         
+        // Set up drag completion handler
+        this.DropCompleted += OnDropCompleted;
+        
         // Set up pointer events for visual feedback
         PointerEntered += OnPointerEntered;
         PointerExited += OnPointerExited;
@@ -141,10 +144,8 @@ public sealed partial class PromptTile : UserControl
     /// <summary>
     /// Called when drag operation ends (in DropCompleted we fire our event).
     /// </summary>
-    protected override void OnDropCompleted(UIElement sender, DropCompletedEventArgs e)
+    private void OnDropCompleted(UIElement sender, DropCompletedEventArgs e)
     {
-        base.OnDropCompleted(sender, e);
-        
         // Hide drag indicator
         DragIndicator.Visibility = Visibility.Collapsed;
         
