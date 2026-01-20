@@ -26,7 +26,7 @@ public partial class PromptEditorViewModel : ObservableObject
     /// <summary>
     /// Available color options for prompts.
     /// </summary>
-    public static string[] AvailableColors =>
+    public string[] AvailableColors =>
     [
         "#4CAF50", // Green
         "#2196F3", // Blue  
