@@ -1,0 +1,44 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "title": "Code Review",
+    "content": "Please review this code for bugs, performance issues, and best practices. Suggest improvements and explain your reasoning.",
+    "colorHex": "#4CAF50",
+    "lastUsed": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+    "title": "Explain Simply",
+    "content": "Explain the following concept in simple terms that a beginner could understand. Use analogies where helpful.",
+    "colorHex": "#2196F3",
+    "lastUsed": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+    "title": "Debug Helper",
+    "content": "I'm encountering an error. Please help me debug this issue. Here's the error message and relevant code:",
+    "colorHex": "#F44336",
+    "lastUsed": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "d4e5f6a7-b8c9-0123-defa-456789012345",
+    "title": "Refactor Request",
+    "content": "Please refactor this code to be more readable, maintainable, and following SOLID principles:",
+    "colorHex": "#9C27B0",
+    "lastUsed": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "e5f6a7b8-c9d0-1234-efab-567890123456",
+    "title": "Documentation",
+    "content": "Please generate comprehensive documentation for the following code, including purpose, parameters, return values, and usage examples:",
+    "colorHex": "#FF9800",
+    "lastUsed": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "f6a7b8c9-d0e1-2345-fabc-678901234567",
+    "title": "Test Cases",
+    "content": "Please generate unit test cases for the following code. Cover edge cases, error conditions, and typical usage:",
+    "colorHex": "#00BCD4",
+    "lastUsed": "2026-01-01T00:00:00Z"
+  }
+]

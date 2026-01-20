@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="StickyPrompts.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:StickyPrompts.Controls"
+    xmlns:models="using:StickyPrompts.Models">
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <Grid Grid.Row="0" Padding="8" Background="{ThemeResource LayerFillColorDefaultBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- App Title (hidden in compact mode) -->
+            <TextBlock 
+                x:Name="AppTitle"
+                Grid.Column="0"
+                Text="Sticky Prompts"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                VerticalAlignment="Center"
+                Margin="4,0,0,0" />
+
+            <!-- Toolbar Buttons -->
+            <StackPanel 
+                Grid.Column="2" 
+                Orientation="Horizontal" 
+                Spacing="4">
+                
+                <!-- Add Prompt Button -->
+                <Button 
+                    x:Name="AddButton"
+                    Style="{StaticResource ToolbarButtonStyle}"
+                    ToolTipService.ToolTip="Add Prompt"
+                    Click="AddButton_Click">
+                    <FontIcon Glyph="&#xE710;" FontSize="16" />
+                </Button>
+
+                <!-- Compact Mode Toggle -->
+                <ToggleButton 
+                    x:Name="CompactModeToggle"
+                    Style="{StaticResource ToolbarButtonStyle}"
+                    ToolTipService.ToolTip="Compact Mode"
+                    Click="CompactModeToggle_Click">
+                    <FontIcon Glyph="&#xE8A0;" FontSize="16" />
+                </ToggleButton>
+
+                <!-- Always on Top Toggle -->
+                <ToggleButton 
+                    x:Name="AlwaysOnTopToggle"
+                    IsChecked="True"
+                    Style="{StaticResource ToolbarButtonStyle}"
+                    ToolTipService.ToolTip="Always on Top"
+                    Click="AlwaysOnTopToggle_Click">
+                    <FontIcon Glyph="&#xE718;" FontSize="16" />
+                </ToggleButton>
+            </StackPanel>
+        </Grid>
+
+        <!-- Loading Indicator -->
+        <ProgressRing 
+            x:Name="LoadingRing"
+            Grid.Row="1"
+            IsActive="True"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+
+        <!-- Prompts Grid -->
+        <ScrollViewer 
+            x:Name="PromptsScrollViewer"
+            Grid.Row="1" 
+            Padding="8"
+            Visibility="Collapsed">
+            
+            <ItemsRepeater 
+                x:Name="PromptsRepeater"
+                ItemsSource="{x:Bind ViewModel.Prompts, Mode=OneWay}">
+                
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout 
+                        x:Name="PromptsLayout"
+                        Orientation="Horizontal"
+                        MinItemWidth="120"
+                        MinItemHeight="80"
+                        MinRowSpacing="8"
+                        MinColumnSpacing="8"
+                        ItemsStretch="Fill" />
+                </ItemsRepeater.Layout>
+
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="models:PromptEntry">
+                        <controls:PromptTile 
+                            Prompt="{x:Bind}"
+                            EditRequested="PromptTile_EditRequested"
+                            DeleteRequested="PromptTile_DeleteRequested"
+                            DragCompleted="PromptTile_DragCompleted" />
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </ScrollViewer>
+
+        <!-- Empty State -->
+        <StackPanel 
+            x:Name="EmptyState"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="Collapsed"
+            Spacing="16">
+            
+            <FontIcon 
+                Glyph="&#xE8F1;" 
+                FontSize="48" 
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            
+            <TextBlock 
+                Text="No prompts yet"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                HorizontalAlignment="Center" />
+            
+            <Button 
+                Content="Add your first prompt"
+                HorizontalAlignment="Center"
+                Click="AddButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

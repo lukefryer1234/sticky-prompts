@@ -1,0 +1,40 @@
+name: Build Sticky Prompts
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        platform: [x64]
+        configuration: [Debug, Release]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore NuGet packages
+      run: dotnet restore StickyPrompts.sln
+
+    - name: Build
+      run: dotnet build StickyPrompts.sln -c ${{ matrix.configuration }} -p:Platform=${{ matrix.platform }} --no-restore
+
+    - name: Upload build artifacts
+      if: matrix.configuration == 'Release'
+      uses: actions/upload-artifact@v4
+      with:
+        name: StickyPrompts-${{ matrix.platform }}-${{ matrix.configuration }}
+        path: StickyPrompts/bin/${{ matrix.platform }}/${{ matrix.configuration }}/
+        retention-days: 7

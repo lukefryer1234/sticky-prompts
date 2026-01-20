@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="StickyPrompts.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:StickyPrompts.Converters"
+    RequestedTheme="Dark">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Converters -->
+            <converters:HexToBrushConverter x:Key="HexToBrushConverter" />
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+            <!-- Colors -->
+            <Color x:Key="AppBackgroundColor">#1E1E1E</Color>
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="{StaticResource AppBackgroundColor}" />
+            
+            <Color x:Key="TileHoverColor">#40FFFFFF</Color>
+            <SolidColorBrush x:Key="TileHoverBrush" Color="{StaticResource TileHoverColor}" />
+
+            <!-- Spacing -->
+            <x:Double x:Key="TileSpacing">8</x:Double>
+            <x:Double x:Key="TileCornerRadius">8</x:Double>
+            <Thickness x:Key="ContentPadding">12</Thickness>
+
+            <!-- Prompt Tile Style -->
+            <Style x:Key="PromptTileStyle" TargetType="Button">
+                <Setter Property="Padding" Value="12" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+
+            <!-- Toolbar Button Style -->
+            <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="CornerRadius" Value="4" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

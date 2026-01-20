@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="StickyPrompts.Controls.PromptTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    CanDrag="True"
+    DragStarting="OnDragStarting">
+
+    <Grid 
+        x:Name="TileGrid"
+        Background="{x:Bind ColorBrush, Mode=OneWay}"
+        CornerRadius="8"
+        Padding="12"
+        MinHeight="80">
+        
+        <Grid.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem 
+                    Text="Edit" 
+                    Icon="Edit"
+                    Click="EditMenuItem_Click" />
+                <MenuFlyoutItem 
+                    Text="Delete" 
+                    Icon="Delete"
+                    Click="DeleteMenuItem_Click" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem 
+                    Text="Copy to Clipboard" 
+                    Icon="Copy"
+                    Click="CopyMenuItem_Click" />
+            </MenuFlyout>
+        </Grid.ContextFlyout>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Normal View (shown when not in compact mode) -->
+        <StackPanel x:Name="NormalView" Spacing="4">
+            <!-- Title -->
+            <TextBlock 
+                x:Name="TitleText"
+                Text="{x:Bind Prompt.Title, Mode=OneWay}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Foreground="White"
+                TextTrimming="CharacterEllipsis"
+                MaxLines="1" />
+
+            <!-- Content Preview -->
+            <TextBlock 
+                x:Name="ContentPreview"
+                Text="{x:Bind Prompt.Content, Mode=OneWay}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Foreground="#CCFFFFFF"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="Wrap"
+                MaxLines="2" />
+        </StackPanel>
+
+        <!-- Compact View (icon only, shown in compact mode) -->
+        <Grid 
+            x:Name="CompactView"
+            Visibility="Collapsed"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            
+            <FontIcon 
+                Glyph="&#xE8F1;" 
+                FontSize="20" 
+                Foreground="White" />
+        </Grid>
+
+        <!-- Drag Indicator (visual feedback) -->
+        <Border 
+            x:Name="DragIndicator"
+            Grid.RowSpan="2"
+            Background="#20FFFFFF"
+            CornerRadius="8"
+            Visibility="Collapsed" />
+        
+        <!-- Visual States for hover/press -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="PointerOver">
+                    <VisualState.Setters>
+                        <Setter Target="TileGrid.Opacity" Value="0.9" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                    <VisualState.Setters>
+                        <Setter Target="TileGrid.Opacity" Value="0.8" />
+                        <Setter Target="TileGrid.Scale" Value="0.98,0.98,1" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>
